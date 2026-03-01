@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | IntelliSystems</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f2455 60%, #162b6e 100%);
+        }
+
+        .go-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .go-back:hover {
+            background: #1e40af;
+        }
+
+
+        .login-container {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 32px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #0f172a;
+        }
+
+        .form-sub {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .steps {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .step {
+            height: 4px;
+            flex: 1;
+            background: #e2e8f0;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .step.active {
+            background: #2563eb;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 13px;
+            margin-bottom: 4px;
+            color: #475569;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        .btn-primary {
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #1e40af;
+        }
+
+        @media(max-width:500px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button href="index.html" class="go-back" onclick="window.history.back();">← Go Back</button>
+    <div class="login-container">
+        <h1 class="form-title">Create your own routes</h1>
+        <p class="form-eyebrow">Get Started Free</p>
+        <p class="form-sub">with IntelliSystems — no credit card required.</p>
+
+        <div class="steps">
+            <div class="step active"></div>
+            <div class="step"></div>
+            <div class="step"></div>
+        </div>
+
+        <form>
+            <div class="field-row">
+                <div>
+                    <label>First name</label>
+                    <input type="text" placeholder="Alex">
+                </div>
+                <div>
+                    <label>Last name</label>
+                    <input type="text" placeholder="Chen">
+                </div>
+            </div>
+
+            <div>
+                <label>Phone number</label>
+                <input type="tel" placeholder="+1 (555) 000-0000">
+            </div>
+
+            <button type="submit" class="btn-primary">Continue</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
