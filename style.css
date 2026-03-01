@@ -44,8 +44,8 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-      NAVIGATION & HEADER
-      ═══════════════════════════════════════════ */
+         NAVIGATION & HEADER
+         ═══════════════════════════════════════════ */
 
 .topbar {
   background: var(--navy);
@@ -197,40 +197,47 @@ nav {
 /* ─── HAMBURGER MENU ──────────────────────── */
 
 .nav-hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 6px;
-  background: none;
+  width: 44px;
+  height: 44px;
   border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1001;
+  display: none;
 }
 
 .nav-hamburger span {
-  display: block;
-  width: 22px;
+  width: 24px;
   height: 2px;
-  background: var(--navy);
+  background: #0b1229;
   border-radius: 2px;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
-.nav-hamburger.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+.nav-hamburger:hover span {
+  background: #1a6bff;
 }
 
-.nav-hamburger.open span:nth-child(2) {
+.nav-hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.nav-hamburger.active span:nth-child(2) {
   opacity: 0;
 }
 
-.nav-hamburger.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+.nav-hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* ─── MOBILE MENU ─────────────────────────── */
 
 .mobile-menu {
-  display: none;
   position: fixed;
   top: 64px;
   left: 0;
@@ -243,9 +250,10 @@ nav {
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
+  display: none;
 }
 
-.mobile-menu.open {
+.mobile-menu.active {
   display: flex;
 }
 
@@ -295,8 +303,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      HERO SECTION
-      ═══════════════════════════════════════════ */
+         HERO SECTION
+         ═══════════════════════════════════════════ */
 
 .hero {
   background: linear-gradient(
@@ -708,8 +716,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      LOGOS STRIP
-      ═══════════════════════════════════════════ */
+         LOGOS STRIP
+         ═══════════════════════════════════════════ */
 
 .logos-strip {
   background: var(--gray-light);
@@ -753,8 +761,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      STATS SECTION
-      ═══════════════════════════════════════════ */
+         STATS SECTION
+         ═══════════════════════════════════════════ */
 
 .stats-section {
   background: var(--navy);
@@ -819,8 +827,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      SECTION SHARED STYLES
-      ═══════════════════════════════════════════ */
+         SECTION SHARED STYLES
+         ═══════════════════════════════════════════ */
 
 .section {
   padding: 80px 24px;
@@ -866,8 +874,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      FEATURES SECTION
-      ═══════════════════════════════════════════ */
+         FEATURES SECTION
+         ═══════════════════════════════════════════ */
 
 .features-section {
   background: var(--white);
@@ -929,8 +937,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      HOW IT WORKS SECTION
-      ═══════════════════════════════════════════ */
+         HOW IT WORKS SECTION
+         ═══════════════════════════════════════════ */
 
 .how-section {
   background: var(--navy);
@@ -1006,8 +1014,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      PLATFORM SECTION
-      ═══════════════════════════════════════════ */
+         PLATFORM SECTION
+         ═══════════════════════════════════════════ */
 
 .platform-item {
   display: grid;
@@ -1078,12 +1086,11 @@ nav {
 /* ─── PHONE MOCKUP ────────────────────────── */
 
 .phone-mockup {
-  width: 180px;
-  background: var(--navy);
-  border: 4px solid #2a3a5c;
-  border-radius: 26px;
+  width: 200px;
+  background: #0f1e3a;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .phone-screen {
@@ -1158,8 +1165,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      TESTIMONIALS SECTION
-      ═══════════════════════════════════════════ */
+         TESTIMONIALS SECTION
+         ═══════════════════════════════════════════ */
 
 .testimonials-section {
   background: var(--gray-light);
@@ -1231,8 +1238,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      CTA BANNER SECTION
-      ═══════════════════════════════════════════ */
+         CTA BANNER SECTION
+         ═══════════════════════════════════════════ */
 
 .cta-section {
   background: linear-gradient(135deg, var(--blue) 0%, #0d3dba 100%);
@@ -1301,8 +1308,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      FAQ SECTION
-      ═══════════════════════════════════════════ */
+         FAQ SECTION
+         ═══════════════════════════════════════════ */
 
 .section-faq {
   background: #f7f8fc;
@@ -1364,8 +1371,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      FOOTER
-      ═══════════════════════════════════════════ */
+         FOOTER
+         ═══════════════════════════════════════════ */
 
 .footer {
   background: #080b15;
@@ -1523,26 +1530,6 @@ nav {
   vertical-align: middle;
 }
 
-.newsletter-form button {
-  background: #1a6bff;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font-secondary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.newsletter-form button:hover {
-  background: #3a7fff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(26, 107, 255, 0.35);
-}
-
 .footer-bottom {
   display: flex;
   align-items: center;
@@ -1572,29 +1559,9 @@ nav {
   color: #6b7a99;
 }
 
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #3ecf8e;
-  background: rgba(62, 207, 142, 0.08);
-  border: 1px solid rgba(62, 207, 142, 0.2);
-  border-radius: 100px;
-  padding: 4px 10px;
-}
-
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #3ecf8e;
-  animation: pulse 2s infinite;
-}
-
 /* ═══════════════════════════════════════════
-      ANIMATIONS
-      ═══════════════════════════════════════════ */
+         ANIMATIONS
+         ═══════════════════════════════════════════ */
 
 @keyframes pulse {
   0%,
@@ -1664,8 +1631,8 @@ nav {
 }
 
 /* ═══════════════════════════════════════════
-      RESPONSIVE BREAKPOINTS
-      ═══════════════════════════════════════════ */
+         RESPONSIVE BREAKPOINTS
+         ═══════════════════════════════════════════ */
 
 /* Tablet: 768px - 1024px */
 @media (max-width: 1024px) {
@@ -1979,16 +1946,4 @@ nav {
     max-width: 180px;
     font-size: 10px;
   }
-}
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
-  cursor: pointer;
 }

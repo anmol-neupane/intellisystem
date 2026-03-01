@@ -10,6 +10,8 @@
         rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 
+<body>
+
 
     <!-- TOPBAR -->
     <div class="topbar">
@@ -37,25 +39,25 @@
         <div class="nav-actions">
             <a href="login.html" class="btn-ghost">Login</a>
             <a href="root.html" class="btn-primary">Create your routes</a>
-            <a href="#" class="btn-demo">Book a demo</a>
+            <a href="demo.html" class="btn-demo">Book a demo</a>
         </div>
 
-        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
             <span></span><span></span><span></span>
         </button>
     </nav>
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#platform">Platform</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#industries">Industries</a>
-        <a href="#resources">Resources</a>
+        <a href="#platform" class="mobile-link">Platform</a>
+        <a href="#pricing" class="mobile-link">Pricing</a>
+        <a href="#industries" class="mobile-link">Industries</a>
+        <a href="#resources" class="mobile-link">Resources</a>
         <div class="mobile-divider"></div>
         <div class="mobile-cta">
-            <a href="#" class="m-primary">Create your routes</a>
-            <a href="#" class="m-dark">Book a demo</a>
-            <a href="#" style="text-align:center; color:var(--navy); font-size:15px;">Login</a>
+            <a href="root.html" class="m-primary">Create your routes</a>
+            <a href="demo.html" class="m-dark">Book a demo</a>
+            <a href="login.html" style="text-align:center; color:var(--navy); font-size:15px;">Login</a>
         </div>
     </div>
 
@@ -653,31 +655,80 @@
     </footer>
 
 
-    </body>
-    <script>
-        const faqButtons = document.querySelectorAll(".faq-question");
+</body>
+<script>
+    // Mobile menu toggle functionality
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+    const mobileCTALinks = document.querySelectorAll(".mobile-cta a");
 
-        faqButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                const faqItem = button.closest(".faq-item");
-                const answer = faqItem.querySelector(".faq-answer");
-                const isOpen = button.getAttribute("aria-expanded") === "true";
+    // Toggle menu on hamburger click
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle("active");
+            hamburger.classList.toggle("active");
+            document.body.classList.toggle("menu-open");
+            hamburger.classList.toggle("active");
+            document.body.classList.toggle("menu-open");
+            hamburger.setAttribute("aria-expanded",
+                hamburger.getAttribute("aria-expanded") === "true" ? "false" : "true");
+        });
 
-                // Close all other FAQs (optional - accordion style)
-                document.querySelectorAll(".faq-question").forEach(btn => {
-                    btn.setAttribute("aria-expanded", "false");
-                    btn.closest(".faq-item").querySelector(".faq-answer").style.maxHeight = null;
-                    btn.closest(".faq-item").querySelector(".faq-icon").textContent = "+";
-                });
-
-                // Toggle current one
-                if (!isOpen) {
-                    button.setAttribute("aria-expanded", "true");
-                    answer.style.maxHeight = answer.scrollHeight + "px";
-                    faqItem.querySelector(".faq-icon").textContent = "−";
-                }
+        // Close menu when a link is clicked
+        [...mobileLinks, ...mobileCTALinks].forEach(link => {
+            link.addEventListener("click", (e) => {
+                mobileMenu.classList.remove("active");
+                hamburger.classList.remove("active");
+                document.body.classList.remove("menu-open");
+                hamburger.setAttribute("aria-expanded", "false");
             });
         });
-    </script>
+
+        // Close menu when clicking outside
+        document.addEventListener("click", (e) => {
+            const isClickInsideMenu = mobileMenu.contains(e.target);
+            const isClickOnHamburger = hamburger.contains(e.target);
+
+            if (!isClickInsideMenu && !isClickOnHamburger && mobileMenu.classList.contains("active")) {
+                mobileMenu.classList.remove("active");
+                hamburger.classList.remove("active");
+                document.body.classList.remove("menu-open");
+                hamburger.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        // Prevent menu from closing when clicking inside it
+        mobileMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    // FAQ accordion functionality
+    const faqButtons = document.querySelectorAll(".faq-question");
+
+    faqButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const faqItem = button.closest(".faq-item");
+            const answer = faqItem.querySelector(".faq-answer");
+            const isOpen = button.getAttribute("aria-expanded") === "true";
+
+            // Close all other FAQs (accordion style)
+            document.querySelectorAll(".faq-question").forEach(btn => {
+                btn.setAttribute("aria-expanded", "false");
+                btn.closest(".faq-item").querySelector(".faq-answer").style.maxHeight = null;
+                btn.closest(".faq-item").querySelector(".faq-icon").textContent = "+";
+            });
+
+            // Toggle current one
+            if (!isOpen) {
+                button.setAttribute("aria-expanded", "true");
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                faqItem.querySelector(".faq-icon").textContent = "−";
+            }
+        });
+    });
+</script>
 
 </html>

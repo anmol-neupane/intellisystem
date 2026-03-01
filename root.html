@@ -4,183 +4,769 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account | IntelliSystems</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
+    <title>Create Your Routes | IntelliSystems</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <!-- Leaflet Maps Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'DM Sans', sans-serif;
-        }
+        /* ═══════════════════════════════════════════
+           ROUTE CREATION PAGE STYLES
+           ═══════════════════════════════════════════ */
 
         body {
-            min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .signup-wrapper {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* Left Side - Form */
+        .signup-form-section {
+            background: #fff;
+            padding: 60px 48px;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            background: linear-gradient(135deg, #0f2455 60%, #162b6e 100%);
+            overflow-y: auto;
         }
 
-        .go-back {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px 18px;
-            border-radius: 8px;
-            border: none;
-            background: #2563eb;
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .go-back:hover {
-            background: #1e40af;
-        }
-
-
-        .login-container {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 40px 32px;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        .form-header {
+            margin-bottom: 40px;
         }
 
         .form-eyebrow {
-            font-size: 12px;
+            font-family: var(--font-primary);
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #2563eb;
-            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            color: var(--blue);
+            margin-bottom: 12px;
         }
 
         .form-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #0f172a;
+            font-family: var(--font-primary);
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--navy);
+            line-height: 1.2;
         }
 
-        .form-sub {
+        .form-subtitle {
             font-size: 14px;
-            color: #64748b;
-            margin-bottom: 28px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 8px;
         }
 
-        .steps {
+        .form-highlight {
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 4px;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
             display: flex;
-            gap: 6px;
-            margin-bottom: 24px;
+            gap: 8px;
+            margin-bottom: 40px;
         }
 
-        .step {
-            height: 4px;
+        .progress-step {
+            height: 3px;
             flex: 1;
-            background: #e2e8f0;
-            border-radius: 4px;
-            transition: 0.3s;
+            background: #e5e8ef;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .step.active {
-            background: #2563eb;
+        .progress-step.active {
+            background: var(--blue);
         }
 
-        form {
+        .progress-step.completed {
+            background: var(--green);
+        }
+
+        /* Signup Form */
+        .signup-form {
             display: flex;
             flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
 
-        .field-row {
+        .form-group label {
+            font-family: var(--font-primary);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1.5px solid #e5e8ef;
+            font-size: 14px;
+            font-family: var(--font-secondary);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input::placeholder,
+        .form-group select::placeholder {
+            color: #cbd5e1;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-continue {
+            background: var(--blue);
+            color: #fff;
+            padding: 13px 24px;
+            border-radius: 8px;
+            border: none;
+            font-family: var(--font-primary);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            margin-top: 8px;
+        }
+
+        .btn-continue:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-continue:active {
+            transform: translateY(0);
+        }
+
+        /* Right Side - Map & Preview */
+        .signup-map-section {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2455 60%, #162b6e 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .map-container {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #deliveryMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-info-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .map-info-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .map-info-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--blue-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        .map-info-title {
+            font-family: var(--font-primary);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .map-info-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
-        label {
-            font-size: 13px;
-            margin-bottom: 4px;
-            color: #475569;
+        .info-stat {
+            padding: 8px 0;
         }
 
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            font-size: 14px;
-            outline: none;
-            transition: 0.2s;
-        }
-
-        input:focus {
-            border-color: #2563eb;
-        }
-
-        .btn-primary {
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
-            background: #2563eb;
-            color: white;
+        .info-stat-label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-weight: 600;
+        }
+
+        .info-stat-value {
+            font-family: var(--font-primary);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-top: 2px;
+        }
+
+        .go-back-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1.5px solid #e5e8ef;
+            background: #fff;
+            color: var(--navy);
+            font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: border-color 0.2s, background 0.2s;
+            text-decoration: none;
+            font-family: var(--font-primary);
+            z-index: 100;
         }
 
-        .btn-primary:hover {
-            background: #1e40af;
+        .go-back-btn:hover {
+            border-color: var(--blue);
+            background: var(--blue-light);
+            color: var(--blue);
         }
 
-        @media(max-width:500px) {
-            .field-row {
+        /* Form Step Sections */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .signup-form-section {
+                padding: 40px 32px;
+            }
+
+            .form-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .signup-wrapper {
                 grid-template-columns: 1fr;
+            }
+
+            .signup-map-section {
+                min-height: 300px;
+                padding: 24px;
+            }
+
+            .signup-form-section {
+                padding: 40px 32px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .signup-wrapper {
+                min-height: auto;
+            }
+
+            .signup-form-section {
+                padding: 32px 24px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .go-back-btn {
+                top: 16px;
+                left: 16px;
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+
+            .signup-map-section {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-form-section {
+                padding: 24px 16px;
+            }
+
+            .form-header {
+                margin-bottom: 28px;
+            }
+
+            .form-title {
+                font-size: 20px;
+            }
+
+            .map-info-card {
+                padding: 16px;
+            }
+
+            .form-group input {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 
 <body>
-    <button href="index.html" class="go-back" onclick="window.history.back();">← Go Back</button>
-    <div class="login-container">
-        <h1 class="form-title">Create your own routes</h1>
-        <p class="form-eyebrow">Get Started Free</p>
-        <p class="form-sub">with IntelliSystems — no credit card required.</p>
-
-        <div class="steps">
-            <div class="step active"></div>
-            <div class="step"></div>
-            <div class="step"></div>
-        </div>
-
-        <form>
-            <div class="field-row">
-                <div>
-                    <label>First name</label>
-                    <input type="text" placeholder="Alex">
-                </div>
-                <div>
-                    <label>Last name</label>
-                    <input type="text" placeholder="Chen">
-                </div>
-            </div>
-
-            <div>
-                <label>Phone number</label>
-                <input type="tel" placeholder="+1 (555) 000-0000">
-            </div>
-
-            <button type="submit" class="btn-primary">Continue</button>
-        </form>
+    <div class="topbar">
+        Increase your revenue with LinkPOS ! &nbsp;<a href="#">follow Linkgroup →</a>
     </div>
 
+    <!-- NAV -->
+    <nav id="mainNav">
+        <a href="index.html" class="nav-logo">
+            <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="34" height="34" rx="8" fill="#1a6bff" />
+                <path d="M8 17 Q17 8 26 17 Q17 26 8 17Z" fill="white" opacity="0.9" />
+                <circle cx="17" cy="17" r="4" fill="white" />
+            </svg>
+            Intelli<span>Systems</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Platform</a></li>
+            <li><a href="index.html">Pricing</a></li>
+            <li><a href="index.html">Industries</a></li>
+            <li><a href="index.html">Resources</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="root.html" class="btn-primary">Create your routes</a>
+            <a href="demo.html" class="btn-demo">Book a demo</a>
+        </div>
+
+        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-link">Platform</a>
+        <a href="index.html" class="mobile-link">Pricing</a>
+        <a href="index.html" class="mobile-link">Industries</a>
+        <a href="index.html" class="mobile-link">Resources</a>
+        <div class="mobile-divider"></div>
+        <div class="mobile-cta">
+            <a href="root.html" class="m-primary">Create your routes</a>
+            <a href="demo.html" class="m-dark">Book a demo</a>
+            <a href="login.html" style="text-align:center; color:var(--navy); font-size:15px;">Login</a>
+        </div>
+    </div>
+    <!-- Top Navigation -->
+
+
+    <div style="margin-left: auto;"></div>
+
+
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-link">Platform</a>
+        <a href="index.html" class="mobile-link">Pricing</a>
+        <a href="index.html" class="mobile-link">Industries</a>
+        <a href="index.html" class="mobile-link">Resources</a>
+        <div class="mobile-divider"></div>
+        <div class="mobile-cta">
+            <a href="login.html" class="m-primary">Login</a>
+            <a href="demo.html" class="m-dark">Book a demo</a>
+        </div>
+    </div>
+
+    <!-- Go Back Button -->
+
+
+    <!-- Main Content -->
+    <div class="signup-wrapper">
+        <!-- Left: Form Section -->
+        <div class="signup-form-section">
+            <div class="form-header">
+                <div class="form-eyebrow">Get Started</div>
+                <h1 class="form-title">Create Your Routes</h1>
+                <p class="form-subtitle">Set up your delivery operations in 3 simple steps. No credit card required.</p>
+                <div class="form-highlight">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Free 7-day trial included
+                </div>
+            </div>
+
+            <div class="progress-steps">
+                <div class="progress-step active" data-step="1"></div>
+                <div class="progress-step" data-step="2"></div>
+                <div class="progress-step" data-step="3"></div>
+            </div>
+
+            <form class="signup-form" id="signupForm">
+                <!-- Step 1: Personal Information -->
+                <div class="form-step active" id="step1">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                    </div>
+
+                    <button type="button" class="btn-continue" onclick="nextStep()">Continue to Company Details</button>
+                </div>
+
+                <!-- Step 2: Company Information -->
+                <div class="form-step" id="step2">
+                    <div class="form-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" placeholder="Your Business Ltd." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <select id="industry" required>
+                            <option value="">Select an industry</option>
+                            <option value="delivery">Food Delivery</option>
+                            <option value="logistics">Logistics & Shipping</option>
+                            <option value="furniture">Furniture & Retail</option>
+                            <option value="pharmacy">Pharmacy & Medical</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vehicles">Number of Vehicles</label>
+                        <select id="vehicles" required>
+                            <option value="">Select vehicle count</option>
+                            <option value="1-5">1-5 vehicles</option>
+                            <option value="5-20">5-20 vehicles</option>
+                            <option value="20-50">20-50 vehicles</option>
+                            <option value="50+">50+ vehicles</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="button" class="btn-continue" style="background: #cbd5e1; color: #0f172a;"
+                            onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-continue" onclick="nextStep()">Continue to
+                            Confirmation</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="form-step" id="step3">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group" style="flex-direction: row; align-items: center;">
+                        <input type="checkbox" id="terms" style="width: 20px; height: 20px; cursor: pointer;" required>
+                        <label for="terms" style="margin: 0; cursor: pointer; text-transform: none;">
+                            I agree to the <a href="#" style="color: var(--blue);">Terms of Service</a> and <a href="#"
+                                style="color: var(--blue);">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="button" class="btn-continue" style="background: #cbd5e1; color: #0f172a;"
+                            onclick="prevStep()">Back</button>
+                        <button type="submit" class="btn-continue">Create Account</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right: Map Section -->
+        <div class="signup-map-section">
+            <div class="map-container">
+                <div id="deliveryMap"></div>
+            </div>
+
+            <div class="map-info-card">
+                <div class="map-info-header">
+                    <div class="map-info-icon">📍</div>
+                    <div class="map-info-title">Route Preview</div>
+                </div>
+                <div class="map-info-content">
+                    <div class="info-stat">
+                        <div class="info-stat-label">Estimated Stops</div>
+                        <div class="info-stat-value">12</div>
+                    </div>
+                    <div class="info-stat">
+                        <div class="info-stat-label">Distance</div>
+                        <div class="info-stat-value">42 mi</div>
+                    </div>
+                    <div class="info-stat">
+                        <div class="info-stat-label">Est. Duration</div>
+                        <div class="info-stat-value">3h 20m</div>
+                    </div>
+                    <div class="info-stat">
+                        <div class="info-stat-label">Vehicles Needed</div>
+                        <div class="info-stat-value">1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const mobileLinks = document.querySelectorAll(".mobile-link");
+        const mobileCTALinks = document.querySelectorAll(".mobile-cta a");
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener("click", (e) => {
+                e.stopPropagation();
+                mobileMenu.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            });
+
+            [...mobileLinks, ...mobileCTALinks].forEach(link => {
+                link.addEventListener("click", () => {
+                    mobileMenu.classList.remove("active");
+                    hamburger.classList.remove("active");
+                });
+            });
+
+            document.addEventListener("click", (e) => {
+                const isClickInsideMenu = mobileMenu.contains(e.target);
+                const isClickOnHamburger = hamburger.contains(e.target);
+
+                if (!isClickInsideMenu && !isClickOnHamburger && mobileMenu.classList.contains("active")) {
+                    mobileMenu.classList.remove("active");
+                    hamburger.classList.remove("active");
+                }
+            });
+
+            mobileMenu.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
+        }
+
+        // Form steps
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show current step
+            document.getElementById(`step${step}`).classList.add('active');
+
+            // Update progress
+            document.querySelectorAll('.progress-step').forEach((el, index) => {
+                if (index + 1 < step) {
+                    el.classList.add('completed');
+                    el.classList.remove('active');
+                } else if (index + 1 === step) {
+                    el.classList.add('active');
+                    el.classList.remove('completed');
+                } else {
+                    el.classList.remove('active', 'completed');
+                }
+            });
+
+            currentStep = step;
+        }
+
+        function nextStep() {
+            if (currentStep < 3) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Account created successfully! Your 7-day free trial is ready to start.');
+            // In a real app, send data to server
+        });
+
+        // Initialize Map
+        function initMap() {
+            const map = L.map('deliveryMap').setView([-33.8688, 151.2093], 12);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19,
+                opacity: 0.8
+            }).addTo(map);
+
+            const deliveryPoints = [
+                { lat: -33.8688, lng: 151.2093, name: 'Start Point - Sydney CBD', color: '#1a6bff' },
+                { lat: -33.8731, lng: 151.2065, name: 'Stop 1 - Town Hall', color: '#22c55e' },
+                { lat: -33.8587, lng: 151.2140, name: 'Stop 2 - Opera House', color: '#22c55e' },
+                { lat: -33.8523, lng: 151.2108, name: 'Stop 3 - Circular Quay', color: '#22c55e' },
+                { lat: -33.8908, lng: 151.2743, name: 'Stop 4 - Bondi Beach', color: '#22c55e' },
+                { lat: -33.8830, lng: 151.2167, name: 'End Point - Surry Hills', color: '#f97316' }
+            ];
+
+            // Add markers
+            deliveryPoints.forEach((point, index) => {
+                const markerIcon = L.divIcon({
+                    html: `
+                        <div style="
+                            background: ${point.color};
+                            color: white;
+                            border-radius: 50%;
+                            width: 32px;
+                            height: 32px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 2px solid white;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                            font-weight: bold;
+                            font-size: 12px;
+                        ">
+                            ${index + 1}
+                        </div>
+                    `,
+                    className: 'delivery-marker',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 16]
+                });
+
+                L.marker([point.lat, point.lng], { icon: markerIcon })
+                    .bindPopup(`<strong>${point.name}</strong><br>Stop ${index + 1}`)
+                    .addTo(map);
+            });
+
+            // Draw route line
+            const routePath = deliveryPoints.map(p => [p.lat, p.lng]);
+            L.polyline(routePath, {
+                color: '#1a6bff',
+                weight: 3,
+                opacity: 0.7,
+                dashArray: '5, 5'
+            }).addTo(map);
+
+            // Fit map bounds
+            const group = new L.featureGroup(
+                deliveryPoints.map(p => L.marker([p.lat, p.lng]))
+            );
+            map.fitBounds(group.getBounds(), { padding: [50, 50] });
+        }
+
+        // Initialize map when page loads
+        window.addEventListener('load', initMap);
+    </script>
 </body>
 
 </html>
