@@ -1375,33 +1375,31 @@ nav {
          ═══════════════════════════════════════════ */
 
 .footer {
-  background: #080b15;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 72px 0 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.footer::before {
-  content: '';
-  position: absolute;
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 700px;
-  height: 300px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(26, 107, 255, 0.12) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .footer-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-text {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  text-align: center;
+}
+
+.footer-social {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .footer-top {
