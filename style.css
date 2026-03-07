@@ -1377,6 +1377,14 @@ nav {
 .footer {
   width: 100%;
   box-sizing: border-box;
+  background-color: #141825;
+}
+.footer-text,
+.footer-text,
+.footer-inner,
+.nav-logo,
+.social-btn {
+  color: #ffffff;
 }
 
 .footer-inner {
@@ -1693,8 +1701,9 @@ nav {
   }
 
   nav {
-    padding: 0 16px;
-    height: 60px;
+    display: flex;
+    justify-content: space-between; /* or use margin-left: auto on the button */
+    align-items: center;
   }
 
   .nav-logo {
